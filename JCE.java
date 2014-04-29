@@ -7,17 +7,49 @@ import java.util.Scanner;
 public class JCE {
 
     public static void main(String [] args) {    
-        File file = new File("plaintext.txt");
-        try {
-            Scanner scan = new Scanner(file);
 
-            while (scan.hasNextLine()) {
-                String line = scan.nextLine();
-                System.out.println(line);
-            }
-            scan.close();
+        String plaintext = getText("plaintext.txt");
+        System.out.println(plaintext);
+
+        writeToFile(plaintext, "ciphertext.txt");
+        String foo = getText("ciphertext.txt");
+        System.out.println(foo);
+        
+    }
+
+    public static String getText(String filename) {
+        String text = null;
+        File file = new File(filename);
+        
+        //Read the message from given file
+        try {
+                Scanner scan = new Scanner(file);
+                text = scan.nextLine();
+                scan.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return text;
     }
+
+    public static void writeToFile(String str, String filename) {
+        File f = new File(filename);
+
+        if(f.isFile() == false) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+                PrintWriter outFile = new PrintWriter(filename);
+                outFile.println(str);
+                outFile.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+
 }
