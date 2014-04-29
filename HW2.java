@@ -11,10 +11,10 @@ public class HW2 {
         String plaintext = getText("plaintext.txt");
         System.out.println(plaintext);
 
-        writeToFile(plaintext, "ciphertext.txt");
-        String foo = getText("ciphertext.txt");
-        System.out.println(foo);
-        
+        Crypto aes = new Crypto(plaintext);
+
+        aes.genKey();
+        aes.setCipher();
     }
 
     public static String getText(String filename) {
